@@ -5,6 +5,7 @@ signal path_established(points)
 
 var active_points := []
 var is_drawing := false
+var is_ := false
 var distance_threshold := 40.0
 var count = 0
 
@@ -21,9 +22,6 @@ func _unhandled_input(event: InputEvent) -> void:
 			active_points.clear()
 			active_points.append(event.position)
 			is_drawing = true
-
-			
-				
 			update()
 		elif not event.pressed:
 			is_drawing = false
@@ -33,14 +31,12 @@ func _unhandled_input(event: InputEvent) -> void:
 
 func _draw() -> void:
 	if is_drawing:
-#		for point in active_points:
-#			draw_circle(point, 2, Color.red)
 		draw_polyline(active_points, Color.skyblue, 5.0,false)
-	else:
-		if active_points.size() < 0:
-			draw_circle(active_points.front(), 2, Color.red)
-			draw_circle(active_points.back(), 2, Color.yellow)
-			draw_polyline(active_points, Color.skyblue, 1.0)
+#	else:
+#		if active_points.size() < 0:
+#			draw_circle(active_points.front(), 2, Color.red)
+#			draw_circle(active_points.back(), 2, Color.yellow)
+#			draw_polyline(active_points, Color.skyblue, 1.0)
 
 
 func _simplify() -> void:
@@ -63,7 +59,6 @@ func _simplify() -> void:
 	for x in active_points:
 	
 		curve.add_point(x)
-	
 	
 	$Path2D.set_curve(curve)
 	$Path2D/PathFollow2D.offset = 0

@@ -1,0 +1,54 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://scene/protatape/PathBath/Plane.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scene/protatape/PathBath/PathfollowBath.gd" type="Script" id=2]
+
+[node name="PathfollowBath" type="Node2D"]
+script = ExtResource( 2 )
+
+[node name="PathBath" type="Node2D" parent="."]
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="DrawBath" type="Node2D" parent="."]
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="LineBath" type="Node2D" parent="."]
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Plane" parent="." instance=ExtResource( 1 )]
+position = Vector2( 831, 426 )
+
+[node name="Plane2" parent="." instance=ExtResource( 1 )]
+position = Vector2( 207, 372 )
+
+[node name="Plane3" parent="." instance=ExtResource( 1 )]
+position = Vector2( 359, 228 )
+
+[node name="Plane4" parent="." instance=ExtResource( 1 )]
+position = Vector2( 359, 372 )
+
+[node name="Plane5" parent="." instance=ExtResource( 1 )]
+position = Vector2( 504, 372 )
+
+[node name="Plane6" parent="." instance=ExtResource( 1 )]
+position = Vector2( 504, 228 )
+
+[connection signal="path_established" from="Plane" to="." method="_on_Plane_path_established"]
+[connection signal="path_established" from="Plane2" to="." method="_on_Plane_path_established"]
+[connection signal="path_established" from="Plane3" to="." method="_on_Plane_path_established"]
+[connection signal="path_established" from="Plane4" to="." method="_on_Plane_path_established"]
+[connection signal="path_established" from="Plane5" to="." method="_on_Plane_path_established"]
+[connection signal="path_established" from="Plane6" to="." method="_on_Plane_path_established"]
+
+[editable path="Plane"]
+[editable path="Plane2"]
+[editable path="Plane3"]
+[editable path="Plane4"]
+[editable path="Plane5"]
+[editable path="Plane6"]
