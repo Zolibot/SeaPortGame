@@ -31,7 +31,7 @@ func _ready() -> void:
 	pathFollow.set_loop(false)
 	pathFollow.set_lookahead(200) 
 	path2d.add_child(pathFollow)
-	
+	pathFollow.set_position(get_position())
 	
 	
 func _physics_process(delta: float) -> void:
@@ -72,7 +72,7 @@ func _simplify(active_points) -> void:
 	
 
 
-func _on_Area2D_mouse_entered() -> void:
+func _on_Plane_mouse_entered() -> void:
 	$AnimationPlayer.play('Chose')
 	draw.can_move = true
 	if if_add_child:
@@ -80,7 +80,7 @@ func _on_Area2D_mouse_entered() -> void:
 		if_add_child = false
 
 
-func _on_Area2D_mouse_exited() -> void:
+func _on_Plane_mouse_exited() -> void:
 	$AnimationPlayer.play('Exit')
 	draw.can_move = false
 	

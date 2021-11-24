@@ -6,6 +6,11 @@
 [node name="PathfollowBath" type="Node2D"]
 script = ExtResource( 2 )
 
+[node name="LineBath" type="Node2D" parent="."]
+__meta__ = {
+"_edit_lock_": true
+}
+
 [node name="PathBath" type="Node2D" parent="."]
 __meta__ = {
 "_edit_lock_": true
@@ -15,14 +20,6 @@ __meta__ = {
 __meta__ = {
 "_edit_lock_": true
 }
-
-[node name="LineBath" type="Node2D" parent="."]
-__meta__ = {
-"_edit_lock_": true
-}
-
-[node name="Plane" parent="." instance=ExtResource( 1 )]
-position = Vector2( 831, 426 )
 
 [node name="Plane2" parent="." instance=ExtResource( 1 )]
 position = Vector2( 207, 372 )
@@ -39,14 +36,12 @@ position = Vector2( 504, 372 )
 [node name="Plane6" parent="." instance=ExtResource( 1 )]
 position = Vector2( 504, 228 )
 
-[connection signal="path_established" from="Plane" to="." method="_on_Plane_path_established"]
 [connection signal="path_established" from="Plane2" to="." method="_on_Plane_path_established"]
 [connection signal="path_established" from="Plane3" to="." method="_on_Plane_path_established"]
 [connection signal="path_established" from="Plane4" to="." method="_on_Plane_path_established"]
 [connection signal="path_established" from="Plane5" to="." method="_on_Plane_path_established"]
 [connection signal="path_established" from="Plane6" to="." method="_on_Plane_path_established"]
 
-[editable path="Plane"]
 [editable path="Plane2"]
 [editable path="Plane3"]
 [editable path="Plane4"]
