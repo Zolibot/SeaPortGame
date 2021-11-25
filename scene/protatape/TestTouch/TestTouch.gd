@@ -2,23 +2,27 @@ extends Node2D
 
 
 
-signal simlify(activtePoint)
+
+
+
+
 
 var dragging := false
-var can_move := true
 var active_points := []
 var is_drawing := false
 var is_ := false
 var count = 0
 
-#func _ready() -> void:
-#	connect('simlify',$Plane,'_simplify')
+func _ready() -> void:
+	#Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
+	pass
+
+
+func _process(delta: float) -> void:
+	OS.set_window_title("FPS %d" % Engine.get_frames_per_second())
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	if is_drawing:
-		can_move = true
-	
 	if event is InputEventScreenTouch:
 		if not dragging and event.pressed:
 			dragging = true
@@ -27,9 +31,6 @@ func _unhandled_input(event: InputEvent) -> void:
 		if dragging and not event.pressed:
 			dragging = false
 			is_drawing = true
-			can_move = false
-			if active_points.size() >= 2:
-				emit_signal('simlify', active_points)
 			update()
 
 	if event is InputEventScreenDrag and dragging:
@@ -40,12 +41,10 @@ func _unhandled_input(event: InputEvent) -> void:
 
 
 
+
+
+
 func _draw() -> void:
 	if is_drawing:
 		draw_polyline(active_points, Color.skyblue, 5.0,false)
 	
-#	else:
-#		if active_points.size() < 0:
-#			draw_circle(active_points.front(), 2, Color.red)
-#			draw_circle(active_points.back(), 2, Color.yellow)
-#			draw_polyline(active_points, Color.skyblue, 1.0)

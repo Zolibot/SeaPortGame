@@ -17,6 +17,8 @@ func _unhandled_input(event: InputEvent) -> void:
 			if count % 10 == 0:
 				update()
 				count = 0 
+				
+				
 	elif event is InputEventMouseButton:
 		if event.pressed and event.button_index == BUTTON_LEFT:
 			active_points.clear()
