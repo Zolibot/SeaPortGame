@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://scene/protatape/PathBath/new_atlastexture.atlastex" type="Texture" id=1]
 [ext_resource path="res://scene/protatape/PathBath/Plane.gd" type="Script" id=2]
@@ -92,6 +92,8 @@ tracks/1/keys = {
 "values": [ Vector2( 0.1, 0.1 ) ]
 }
 
+[sub_resource type="RectangleShape2D" id=6]
+
 [node name="Plane" type="KinematicBody2D"]
 input_pickable = true
 script = ExtResource( 2 )
@@ -113,5 +115,12 @@ anims/Chose = SubResource( 3 )
 anims/Exit = SubResource( 5 )
 anims/RESET = SubResource( 4 )
 
+[node name="TouchScreenButton" type="TouchScreenButton" parent="."]
+scale = Vector2( 4.8, 4.8 )
+shape = SubResource( 6 )
+shape_centered = false
+
 [connection signal="mouse_entered" from="." to="." method="_on_Plane_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_Plane_mouse_exited"]
+[connection signal="pressed" from="TouchScreenButton" to="." method="_on_TouchScreenButton_pressed"]
+[connection signal="released" from="TouchScreenButton" to="." method="_on_TouchScreenButton_released"]

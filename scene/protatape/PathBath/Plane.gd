@@ -84,3 +84,11 @@ func _on_Plane_mouse_exited() -> void:
 	$AnimationPlayer.play('Exit')
 	draw.can_move = false
 	
+
+
+func _on_TouchScreenButton_pressed() -> void:
+	_on_Plane_mouse_entered()
+
+
+func _on_TouchScreenButton_released() -> void:
+	_on_Plane_mouse_exited()

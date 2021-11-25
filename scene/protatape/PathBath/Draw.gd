@@ -19,20 +19,20 @@ func _unhandled_input(event: InputEvent) -> void:
 	if is_drawing:
 		can_move = true
 	
-	if event is InputEventScreenTouch:
+	if event is InputEventScreenTouch and can_move:
 		if not dragging and event.pressed:
 			dragging = true
 			active_points.clear()
 	   
 		if dragging and not event.pressed:
 			dragging = false
-			is_drawing = true
+			is_drawing = false
 			can_move = false
 			if active_points.size() >= 2:
 				emit_signal('simlify', active_points)
 			update()
 
-	if event is InputEventScreenDrag and dragging:
+	if event is InputEventScreenDrag and dragging and can_move:
 		active_points.append(event.position)
 		is_drawing = true
 		update()
