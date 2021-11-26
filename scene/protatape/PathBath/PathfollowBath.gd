@@ -11,7 +11,6 @@ onready var drawBath = $DrawBath
 
 
 func _ready() -> void:
-	print(1)
 	emit_signal('ok')
 
 func _process(delta: float) -> void:
