@@ -1,12 +1,5 @@
 extends Node2D
 
-
-
-
-
-
-
-
 var dragging := false
 var active_points := []
 var is_drawing := false
@@ -37,10 +30,6 @@ func _unhandled_input(event: InputEvent) -> void:
 		active_points.append(event.position)
 		is_drawing = true
 		update()
-
-
-
-
 
 
 

@@ -41,7 +41,7 @@ func _unhandled_input(event: InputEvent) -> void:
 
 
 func _draw() -> void:
-	if is_drawing and active_points.size() > 0:
+	if is_drawing:
 		draw_polyline(active_points, Color.skyblue, 5.0,false)
 	
 #	else:
