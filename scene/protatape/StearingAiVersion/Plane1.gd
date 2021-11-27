@@ -1,10 +1,10 @@
 extends KinematicBody2D
 
-export (int, 0, 1080, 2) var angular_speed_max := 1000
-export (int, 0, 2048, 2) var angular_accel_max := 1000 
+export (int, 0, 1080, 2) var angular_speed_max := 500
+export (int, 0, 2048, 2) var angular_accel_max := 1400 
 export (int, 0, 180, 2) var align_tolerance := 2
 export (int, 0, 359, 2) var deceleration_radius := 2
-export (float, 0, 1000, 40) var player_speed := 600.0 
+export (float, 0, 1000, 40) var player_speed := 900.0 
 
 export (PackedScene) var draw
 
@@ -18,7 +18,7 @@ var velocity = Vector2()
 
 var if_add_child := true
 
-var distance_threshold := 40.0
+var distance_threshold := 80.0
 
 var face: GSAIFace
 var agent := GSAIKinematicBody2DAgent.new(self)
@@ -39,9 +39,8 @@ func _ready() -> void:
 	
 	draw = draw.instance()
 	draw.connect("simlify",self,"_simplify")
+	# Crutch for multitouch
 	draw.index = 100
-	
-	
 	
 	path2d.add_child(pathFollow)
 	
@@ -59,8 +58,6 @@ func _ready() -> void:
 	emit_signal("path_established", path2d, line2d, draw)
 	if_add_child = false
 
-	
-	
 	setup(
 		pathFollow.agent,
 		deg2rad(align_tolerance),
@@ -85,11 +82,9 @@ func setup(
 	agent.angular_acceleration_max = angular_accel_max
 	agent.angular_speed_max = angular_speed_max
 	agent.angular_drag_percentage = _angular_drag
-
 	
 	
 func _process(delta: float) -> void:
-#	pathFollow.set_position(get_global_mouse_position())
 	if line2d.get_point_count() > 0:
 		if position.distance_to(line2d.get_point_position(0)) < 40:
 			line2d.remove_point(0)
@@ -128,15 +123,16 @@ func _simplify(active_points) -> void:
 	
 	pathFollow.offset = 0
 	path2d.set_curve(curve)
+	
 	line2d.clear_points()
 	line2d.set_points(curve.get_baked_points()) 
+	$Sprite2.visible = false
 	$AnimationPlayer.play("start_speed")
+	
 	
 	if if_add_child:
 		emit_signal("path_established", path2d, line2d)
 		if_add_child = false
-
-
 
 
 func _on_Plane_mouse_entered() -> void:
@@ -150,13 +146,13 @@ func _on_Plane_mouse_entered() -> void:
 
 
 func _on_Plane_mouse_exited() -> void:
-	$AnimationPlayer.play('Exit')
+#	$AnimationPlayer.play('Exit')
 	draw.can_move = false
+	$Sprite2.visible = false
 	
 
 func _on_TouchScreenButton_pressed() -> void:
 	TouchHelper.index += 1
-	print("OK")
 	draw.index = TouchHelper.index
 	_on_Plane_mouse_entered()
 
@@ -164,4 +160,6 @@ func _on_TouchScreenButton_pressed() -> void:
 func _on_TouchScreenButton_released() -> void:
 	TouchHelper.index -= 1
 	draw.index = TouchHelper.index
+	$Sprite2.visible = false
 	_on_Plane_mouse_exited()
+	

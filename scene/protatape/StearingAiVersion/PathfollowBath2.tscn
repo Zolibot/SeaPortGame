@@ -1,10 +1,24 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://scene/protatape/StearingAiVersion/Plane1.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scene/protatape/StearingAiVersion/PathfollowBath2.gd" type="Script" id=2]
+[ext_resource path="res://scene/protatape/StearingAiVersion/AreaStick.tscn" type="PackedScene" id=3]
 
 [node name="PathfollowBath2" type="Node2D"]
 script = ExtResource( 2 )
+
+[node name="DrawBath" type="Node2D" parent="."]
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="AreaStick" parent="." instance=ExtResource( 3 )]
+
+[node name="AreaStick2" parent="." instance=ExtResource( 3 )]
+position = Vector2( 190, 298 )
+
+[node name="AreaStick3" parent="." instance=ExtResource( 3 )]
+position = Vector2( 190, 425 )
 
 [node name="LineBath" type="Node2D" parent="."]
 __meta__ = {
@@ -16,16 +30,15 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="DrawBath" type="Node2D" parent="."]
-__meta__ = {
-"_edit_lock_": true
-}
-
 [node name="Plane" parent="." instance=ExtResource( 1 )]
 position = Vector2( 511, 362 )
 
 [node name="Plane2" parent="." instance=ExtResource( 1 )]
 position = Vector2( 693, 363 )
 
+[node name="Plane3" parent="." instance=ExtResource( 1 )]
+position = Vector2( 937, 342 )
+
 [connection signal="path_established" from="Plane" to="." method="_on_Plane_path_established"]
 [connection signal="path_established" from="Plane2" to="." method="_on_Plane_path_established"]
+[connection signal="path_established" from="Plane3" to="." method="_on_Plane_path_established"]
