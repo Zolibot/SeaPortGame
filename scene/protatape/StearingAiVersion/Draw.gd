@@ -10,7 +10,7 @@ var active_points := []
 var is_drawing := false
 var is_ := false
 var count = 0
-
+var index = 0
 #func _ready() -> void:
 #	connect('simlify',$Plane,'_simplify')
 
@@ -32,8 +32,8 @@ func _unhandled_input(event: InputEvent) -> void:
 				emit_signal('simlify', active_points)
 			update()
 
-	if event is InputEventScreenDrag and dragging and can_move:
-		active_points.append(event.position)
+	if event is InputEventScreenDrag and dragging and can_move and index<10:
+		active_points.append(TouchHelper.state[index])
 		is_drawing = true
 		update()
 
@@ -41,7 +41,7 @@ func _unhandled_input(event: InputEvent) -> void:
 
 
 func _draw() -> void:
-	if is_drawing:
+	if is_drawing and active_points.size() > 0:
 		draw_polyline(active_points, Color.skyblue, 5.0,false)
 	
 #	else:

@@ -8,8 +8,6 @@ onready var pathBath = $PathBath
 onready var lineBath = $LineBath
 onready var drawBath = $DrawBath
 
-
-
 func _ready() -> void:
 	emit_signal('ok')
 

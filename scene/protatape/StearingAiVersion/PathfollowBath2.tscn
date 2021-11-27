@@ -24,4 +24,8 @@ __meta__ = {
 [node name="Plane" parent="." instance=ExtResource( 1 )]
 position = Vector2( 511, 362 )
 
+[node name="Plane2" parent="." instance=ExtResource( 1 )]
+position = Vector2( 693, 363 )
+
 [connection signal="path_established" from="Plane" to="." method="_on_Plane_path_established"]
+[connection signal="path_established" from="Plane2" to="." method="_on_Plane_path_established"]

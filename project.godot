@@ -189,8 +189,12 @@ _global_script_class_icons={
 [application]
 
 config/name="Sea Port Control"
-run/main_scene="res://scene/protatape/PathBath/PathfollowBath.tscn"
+run/main_scene="res://scene/protatape/StearingAiVersion/PathfollowBath2.tscn"
 config/icon="res://icon.png"
+
+[autoload]
+
+TouchHelper="*res://scripts/singleton/TouchHelper.gd"
 
 [display]
 

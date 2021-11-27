@@ -39,6 +39,9 @@ func _ready() -> void:
 	
 	draw = draw.instance()
 	draw.connect("simlify",self,"_simplify")
+	draw.index = 100
+	
+	
 	
 	path2d.add_child(pathFollow)
 	
@@ -127,7 +130,6 @@ func _simplify(active_points) -> void:
 	path2d.set_curve(curve)
 	line2d.clear_points()
 	line2d.set_points(curve.get_baked_points()) 
-	
 	$AnimationPlayer.play("start_speed")
 	
 	if if_add_child:
@@ -153,8 +155,13 @@ func _on_Plane_mouse_exited() -> void:
 	
 
 func _on_TouchScreenButton_pressed() -> void:
+	TouchHelper.index += 1
+	print("OK")
+	draw.index = TouchHelper.index
 	_on_Plane_mouse_entered()
 
 
 func _on_TouchScreenButton_released() -> void:
+	TouchHelper.index -= 1
+	draw.index = TouchHelper.index
 	_on_Plane_mouse_exited()
