@@ -1,41 +1,39 @@
 extends KinematicBody2D
 
-export (int, 0, 1080, 2) var angular_speed_max := 500
-export (int, 0, 2048, 2) var angular_accel_max := 1400 
-export (int, 0, 180, 2) var align_tolerance := 2
-export (int, 0, 359, 2) var deceleration_radius := 2
+signal path_established(path,line,draw)
+signal path_delete(path,line)
+
+enum {IDLE, RUN, GAIN_SPEED, CLEAN_UP_SPEED, MOORING, UNMOORING, COLLISION, MANEUVER}
+
+export (int, 0, 1080, 2) var angular_speed_max := 1000
+export (int, 0, 2048, 2) var angular_accel_max := 1500 
+export (int, 0, 180, 2) var align_tolerance := 10
+export (int, 0, 359, 2) var deceleration_radius := 10
 export (float, 0, 1000, 40) var player_speed := 900.0 
 
 export (PackedScene) var draw
-
-signal path_established(path,line,draw)
-#TODO
-signal path_delete(path,line)
-
 export (int) var speed = 100
 
+var state
 var velocity = Vector2()
-
 var if_add_child := true
-
-var distance_threshold := 80.0
-
+var distance_threshold := 20.0
+var dist_clear_point := 20.0
 var face: GSAIFace
 var agent := GSAIKinematicBody2DAgent.new(self)
-
 var _accel := GSAITargetAcceleration.new()
-
 var _angular_drag := 0.1
-onready var follow_scripts = preload('res://scene/protatape/StearingAiVersion/Follow_target.gd')
 
+onready var follow_scripts = preload('res://scene/protatape/StearingAiVersion/Follow_target.gd')
 onready var path2d:Path2D = Path2D.new()
 onready var pathFollow:PathFollow2D = PathFollow2D.new()
 onready var line2d:Line2D = Line2D.new()
 onready var curve:Curve2D = Curve2D.new()
 
-
 func _ready() -> void:
 	yield(get_parent(),"ok")
+	
+	state = IDLE
 	
 	draw = draw.instance()
 	draw.connect("simlify",self,"_simplify")
@@ -45,8 +43,8 @@ func _ready() -> void:
 	path2d.add_child(pathFollow)
 	
 	pathFollow.set_loop(false)
-	pathFollow.set_lookahead(200) 
-	pathFollow.set_position(get_position())
+	pathFollow.set_lookahead(0) 
+	pathFollow.set_position(get_position()+Vector2(2,2))
 	pathFollow.set_script(follow_scripts)
 	
 	line2d.antialiased = true
@@ -65,7 +63,6 @@ func _ready() -> void:
 		deg2rad(angular_accel_max),
 		deg2rad(angular_speed_max)
 	)
-		
 	
 func setup(
 	player_agent: GSAIAgentLocation,
@@ -83,25 +80,82 @@ func setup(
 	agent.angular_speed_max = angular_speed_max
 	agent.angular_drag_percentage = _angular_drag
 	
-	
 func _process(delta: float) -> void:
 	if line2d.get_point_count() > 0:
-		if position.distance_to(line2d.get_point_position(0)) < 40:
-			line2d.remove_point(0)
+		var _index = 0
+		for x in line2d.get_points():
+			if position.distance_to(line2d.get_point_position(_index)) < dist_clear_point:
+				
+				for y in range(_index):
+					line2d.remove_point(0)
+				break
+			_index += 1
 	
 	
 func _physics_process(delta: float) -> void:
-	face.calculate_steering(_accel)
-	agent._apply_steering(_accel, delta)
+	change_state(state, delta)
+	pass
 	
-	pathFollow.offset += speed * delta
-	velocity = position.direction_to(pathFollow.get_position()) * speed
 
-#	set_rotation(pathFollow.get_rotation())
-	if position.distance_to(pathFollow.get_position()) > 5:
-		velocity = move_and_slide(velocity)
+		
+func get_input(delta)->void:
+	pass
+
+func change_state(new_state, delta):
+	state = new_state
+
+	match state:
+		IDLE:
+			print("IDLE")
+			pass
+		RUN:
+			print("RUN")
+			face.calculate_steering(_accel)
+			agent._apply_steering(_accel, delta)
+
+			if abs(_accel.angular)>0:
+				speed -= 1
+				speed = clamp(speed,0,100)
+			else:
+				speed += 3
+				speed = clamp(speed,0,150)
+			pathFollow.offset += speed * delta
+			velocity = position.direction_to(pathFollow.get_position()) * speed
+			#	set_rotation(pathFollow.get_rotation())
+
+			if position.distance_to(pathFollow.get_position()) > 0.1:
+				velocity = move_and_slide(velocity)
+			else:
+				change_state(IDLE, delta)
+				line2d.clear_points()
+				path2d.get_curve().clear_points()
+
+			pass
+		GAIN_SPEED:
+			$AnimationPlayer.play("start_speed")
+			change_state(RUN, delta)
+			pass
+		CLEAN_UP_SPEED:
+			pass
+		MOORING:
+			pass
+		UNMOORING:
+			pass
+		COLLISION:
+			pass
+		MANEUVER:
+			face.calculate_steering(_accel)
+			agent._apply_steering(_accel, delta)
+			pathFollow.offset += speed * delta
+			
+			if _accel.angular == 0:
+				change_state(GAIN_SPEED, delta)
+			pass
+
 
 func _simplify(active_points) -> void:
+	state = MANEUVER
+
 	var first: Vector2 = active_points.front()
 	var last: Vector2 = active_points.back()
 	var key := first
@@ -127,7 +181,6 @@ func _simplify(active_points) -> void:
 	line2d.clear_points()
 	line2d.set_points(curve.get_baked_points()) 
 	$Sprite2.visible = false
-	$AnimationPlayer.play("start_speed")
 	
 	
 	if if_add_child:
@@ -148,6 +201,7 @@ func _on_Plane_mouse_entered() -> void:
 func _on_Plane_mouse_exited() -> void:
 #	$AnimationPlayer.play('Exit')
 	draw.can_move = false
+	
 	$Sprite2.visible = false
 	
 

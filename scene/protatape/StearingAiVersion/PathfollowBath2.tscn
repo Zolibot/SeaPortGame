@@ -13,12 +13,13 @@ __meta__ = {
 }
 
 [node name="AreaStick" parent="." instance=ExtResource( 3 )]
+position = Vector2( 234, 55 )
 
 [node name="AreaStick2" parent="." instance=ExtResource( 3 )]
-position = Vector2( 190, 298 )
+position = Vector2( 50, 298 )
 
 [node name="AreaStick3" parent="." instance=ExtResource( 3 )]
-position = Vector2( 190, 425 )
+position = Vector2( 325, 542 )
 
 [node name="LineBath" type="Node2D" parent="."]
 __meta__ = {
@@ -31,13 +32,13 @@ __meta__ = {
 }
 
 [node name="Plane" parent="." instance=ExtResource( 1 )]
-position = Vector2( 511, 362 )
+position = Vector2( 958, 67 )
 
 [node name="Plane2" parent="." instance=ExtResource( 1 )]
-position = Vector2( 693, 363 )
+position = Vector2( 955, 194 )
 
 [node name="Plane3" parent="." instance=ExtResource( 1 )]
-position = Vector2( 937, 342 )
+position = Vector2( 959, 520 )
 
 [connection signal="path_established" from="Plane" to="." method="_on_Plane_path_established"]
 [connection signal="path_established" from="Plane2" to="." method="_on_Plane_path_established"]
