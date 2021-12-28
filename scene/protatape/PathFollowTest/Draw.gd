@@ -52,10 +52,10 @@ func _simplify() -> void:
 		active_points.append(last)
 	update()
 	var curve:Curve2D = Curve2D.new()
-	
+
 	for x in active_points:
-	
+
 		curve.add_point(x)
-	
+
 	path.set_curve(curve)
 	emit_signal("path_established", active_points)

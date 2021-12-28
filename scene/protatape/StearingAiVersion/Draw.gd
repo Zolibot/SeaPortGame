@@ -12,16 +12,20 @@ var is_ := false
 var count = 0
 var index = 0
 
+var berth_angle
+var berth_position
+var is_berth = false
+
 
 func _unhandled_input(event: InputEvent) -> void:
 	if is_drawing:
 		can_move = true
-	
+
 	if event is InputEventScreenTouch and can_move:
 		if not dragging and event.pressed:
 			dragging = true
 			active_points.clear()
-	   
+
 		if dragging and not event.pressed:
 			dragging = false
 			is_drawing = false
@@ -45,8 +49,14 @@ func _draw() -> void:
 func _on_stick_stick_to_area() -> void:
 	active_points.append($stick.get_position())
 	if active_points.size() >= 2:
+		berth_angle = $stick.berth_angle
+		berth_position = $stick.berth_position
+		is_berth = $stick.is_berth
+
 		emit_signal('simlify', active_points)
 	update()
+
 	dragging = false
 	is_drawing = false
 	can_move = false
+

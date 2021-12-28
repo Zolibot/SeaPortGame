@@ -1,25 +1,74 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://scene/protatape/StearingAiVersion/Plane1.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scene/protatape/StearingAiVersion/PathfollowBath2.gd" type="Script" id=2]
-[ext_resource path="res://scene/protatape/StearingAiVersion/AreaStick.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scene/protatape/berth/berth.tscn" type="PackedScene" id=3]
+[ext_resource path="res://assets/new/new_tileset.tres" type="TileSet" id=4]
+[ext_resource path="res://scene/protatape/StearingAiVersion/Water2DDemo.tscn" type="PackedScene" id=5]
+[ext_resource path="res://scene/protatape/StearingAiVersion/background.png" type="Texture" id=6]
+[ext_resource path="res://scene/protatape/StearingAiVersion/Water2D/disk_mask.png" type="Texture" id=7]
 
 [node name="PathfollowBath2" type="Node2D"]
 script = ExtResource( 2 )
+
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+visible = false
+color = Color( 0.67451, 0.552941, 0.552941, 1 )
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 704, 379 )
+scale = Vector2( 12, 6.92188 )
+texture = ExtResource( 6 )
+
+[node name="Water2DDemo" parent="." instance=ExtResource( 5 )]
+visible = false
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = ExtResource( 4 )
+cell_size = Vector2( 54, 52 )
+format = 1
+tile_data = PoolIntArray( -1, 1610612737, 0, -65535, 1610612737, 0, -65533, 1610612737, 0, -65532, 1610612737, 0, -65530, 1610612737, 0, -65528, 1610612737, 0, -65526, 1610612736, 0, 65535, -1610612735, 0, 131071, -1610612735, 0, 196607, -1610612735, 0, 327679, -1610612735, 0, 393215, -1610612735, 0, 458751, -1610612735, 0, 524287, -1610612735, 0, 655359, -1610612735, 0, 786431, -1610612735, 0, 851967, -1610612735, 0, 917503, -1610612735, 0, 983039, -1610612735, 0, 917504, 1, 0, 917505, 1, 0, 917506, 1, 0, 917507, 1, 0, 917508, 1, 0, 917509, 1, 0, 917510, 1, 0, 917511, 1, 0, 917512, 1, 0, 917513, 1, 0, 917514, 1, 0, 917515, 1, 0, 917516, 1, 0, 917517, -1610612736, 0 )
+
+[node name="berth" parent="." instance=ExtResource( 3 )]
+position = Vector2( 192, 94 )
+rotation = -1.57079
+
+[node name="berth8" parent="." instance=ExtResource( 3 )]
+position = Vector2( 345, 87 )
+rotation = -1.57079
+
+[node name="berth9" parent="." instance=ExtResource( 3 )]
+position = Vector2( 508, 88 )
+rotation = -1.57079
+
+[node name="berth2" parent="." instance=ExtResource( 3 )]
+position = Vector2( 195, 676 )
+rotation = 1.57079
+
+[node name="berth6" parent="." instance=ExtResource( 3 )]
+position = Vector2( 424, 676 )
+rotation = 1.57079
+
+[node name="berth7" parent="." instance=ExtResource( 3 )]
+position = Vector2( 604, 676 )
+rotation = 1.57079
+
+[node name="berth3" parent="." instance=ExtResource( 3 )]
+position = Vector2( 85, 169 )
+rotation = 3.14159
+
+[node name="berth4" parent="." instance=ExtResource( 3 )]
+position = Vector2( 85, 299 )
+rotation = 3.14159
+
+[node name="berth5" parent="." instance=ExtResource( 3 )]
+position = Vector2( 85, 433 )
+rotation = 3.14159
 
 [node name="DrawBath" type="Node2D" parent="."]
 __meta__ = {
 "_edit_lock_": true
 }
-
-[node name="AreaStick" parent="." instance=ExtResource( 3 )]
-position = Vector2( 234, 55 )
-
-[node name="AreaStick2" parent="." instance=ExtResource( 3 )]
-position = Vector2( 50, 298 )
-
-[node name="AreaStick3" parent="." instance=ExtResource( 3 )]
-position = Vector2( 325, 542 )
 
 [node name="LineBath" type="Node2D" parent="."]
 __meta__ = {
@@ -35,11 +84,38 @@ __meta__ = {
 position = Vector2( 958, 67 )
 
 [node name="Plane2" parent="." instance=ExtResource( 1 )]
-position = Vector2( 955, 194 )
+position = Vector2( 1063, 678 )
+
+[node name="Plane4" parent="." instance=ExtResource( 1 )]
+position = Vector2( 1284, 238 )
+
+[node name="Plane5" parent="." instance=ExtResource( 1 )]
+position = Vector2( 1284, 431 )
+
+[node name="Plane6" parent="." instance=ExtResource( 1 )]
+position = Vector2( 1102, 525 )
+
+[node name="Plane7" parent="." instance=ExtResource( 1 )]
+position = Vector2( 959, 545 )
 
 [node name="Plane3" parent="." instance=ExtResource( 1 )]
-position = Vector2( 959, 520 )
+position = Vector2( 1307, 710 )
+
+[node name="Light2D" type="Light2D" parent="."]
+visible = false
+position = Vector2( 1032, 536 )
+texture = ExtResource( 7 )
+texture_scale = 5.11
+energy = 0.83
+shadow_enabled = true
+shadow_gradient_length = 33.2
+shadow_filter = 5
+shadow_filter_smooth = 15.4
 
 [connection signal="path_established" from="Plane" to="." method="_on_Plane_path_established"]
 [connection signal="path_established" from="Plane2" to="." method="_on_Plane_path_established"]
+[connection signal="path_established" from="Plane4" to="." method="_on_Plane_path_established"]
+[connection signal="path_established" from="Plane5" to="." method="_on_Plane_path_established"]
+[connection signal="path_established" from="Plane6" to="." method="_on_Plane_path_established"]
+[connection signal="path_established" from="Plane7" to="." method="_on_Plane_path_established"]
 [connection signal="path_established" from="Plane3" to="." method="_on_Plane_path_established"]

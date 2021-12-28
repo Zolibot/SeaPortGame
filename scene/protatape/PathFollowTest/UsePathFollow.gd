@@ -16,9 +16,9 @@ func _unhandled_input(event: InputEvent) -> void:
 			count+=1
 			if count % 10 == 0:
 				update()
-				count = 0 
-				
-				
+				count = 0
+
+
 	elif event is InputEventMouseButton:
 		if event.pressed and event.button_index == BUTTON_LEFT:
 			active_points.clear()
@@ -57,13 +57,13 @@ func _simplify() -> void:
 		active_points.append(last)
 	update()
 	var curve:Curve2D = Curve2D.new()
-	
+
 	for x in active_points:
-	
+
 		curve.add_point(x)
-	
+
 	$Path2D.set_curve(curve)
 	$Path2D/PathFollow2D.offset = 0
 	$Line2D.clear_points()
-	$Line2D.set_points(curve.get_baked_points()) 
+	$Line2D.set_points(curve.get_baked_points())
 	emit_signal("path_established", active_points)

@@ -6,10 +6,10 @@ signal path_delete(path,line)
 enum {IDLE, RUN, GAIN_SPEED, CLEAN_UP_SPEED, MOORING, UNMOORING, COLLISION, MANEUVER}
 
 export (int, 0, 1080, 2) var angular_speed_max := 1000
-export (int, 0, 2048, 2) var angular_accel_max := 1500 
+export (int, 0, 2048, 2) var angular_accel_max := 1500
 export (int, 0, 180, 2) var align_tolerance := 10
 export (int, 0, 359, 2) var deceleration_radius := 10
-export (float, 0, 1000, 40) var player_speed := 900.0 
+export (float, 0, 1000, 40) var player_speed := 900.0
 
 export (PackedScene) var draw
 export (int) var speed = 100
@@ -32,27 +32,27 @@ onready var curve:Curve2D = Curve2D.new()
 
 func _ready() -> void:
 	yield(get_parent(),"ok")
-	
+
 	state = IDLE
-	
+
 	draw = draw.instance()
 	draw.connect("simlify",self,"_simplify")
 	# Crutch for multitouch
 	draw.index = 100
-	
+
 	path2d.add_child(pathFollow)
-	
+
 	pathFollow.set_loop(false)
-	pathFollow.set_lookahead(0) 
+	pathFollow.set_lookahead(0)
 	pathFollow.set_position(get_position()+Vector2(2,2))
 	pathFollow.set_script(follow_scripts)
-	
+
 	line2d.antialiased = true
-	line2d.set_joint_mode(line2d.LINE_JOINT_ROUND) 
+	line2d.set_joint_mode(line2d.LINE_JOINT_ROUND)
 	line2d.set_begin_cap_mode(line2d.LINE_JOINT_ROUND)
 	line2d.set_end_cap_mode(line2d.LINE_JOINT_ROUND)
 	line2d.set_texture_mode(line2d.LINE_TEXTURE_TILE)
-	
+
 	emit_signal("path_established", path2d, line2d, draw)
 	if_add_child = false
 
@@ -63,7 +63,7 @@ func _ready() -> void:
 		deg2rad(angular_accel_max),
 		deg2rad(angular_speed_max)
 	)
-	
+
 func setup(
 	player_agent: GSAIAgentLocation,
 	align_tolerance: float,
@@ -79,25 +79,23 @@ func setup(
 	agent.angular_acceleration_max = angular_accel_max
 	agent.angular_speed_max = angular_speed_max
 	agent.angular_drag_percentage = _angular_drag
-	
+
 func _process(delta: float) -> void:
 	if line2d.get_point_count() > 0:
 		var _index = 0
 		for x in line2d.get_points():
 			if position.distance_to(line2d.get_point_position(_index)) < dist_clear_point:
-				
+
 				for y in range(_index):
 					line2d.remove_point(0)
 				break
 			_index += 1
-	
-	
+
+
 func _physics_process(delta: float) -> void:
 	change_state(state, delta)
-	pass
-	
 
-		
+
 func get_input(delta)->void:
 	pass
 
@@ -106,10 +104,13 @@ func change_state(new_state, delta):
 
 	match state:
 		IDLE:
-			print("IDLE")
+
+			if draw.is_berth:
+				change_state(MOORING,delta)
+
 			pass
 		RUN:
-			print("RUN")
+
 			face.calculate_steering(_accel)
 			agent._apply_steering(_accel, delta)
 
@@ -138,6 +139,17 @@ func change_state(new_state, delta):
 		CLEAN_UP_SPEED:
 			pass
 		MOORING:
+			if draw.berth_angle - rotation_degrees > 90:
+				$Tween.interpolate_property(self,"rotation_degrees",rotation_degrees,-draw.berth_angle,2,Tween.TRANS_LINEAR,Tween.EASE_OUT_IN)
+			else:
+				$Tween.interpolate_property(self,"rotation_degrees",rotation_degrees,draw.berth_angle,2,Tween.TRANS_LINEAR,Tween.EASE_OUT_IN)
+
+			$Tween.interpolate_property(self,"position",position,draw.berth_position,2,Tween.TRANS_LINEAR,Tween.EASE_OUT_IN)
+
+			$Tween.start()
+			draw.is_berth = false
+			change_state(IDLE,delta)
+
 			pass
 		UNMOORING:
 			pass
@@ -147,7 +159,7 @@ func change_state(new_state, delta):
 			face.calculate_steering(_accel)
 			agent._apply_steering(_accel, delta)
 			pathFollow.offset += speed * delta
-			
+
 			if _accel.angular == 0:
 				change_state(GAIN_SPEED, delta)
 			pass
@@ -169,20 +181,20 @@ func _simplify(active_points) -> void:
 	active_points = simplified_path
 	if active_points.back() != last:
 		active_points.append(last)
-	
+
 	curve.clear_points()
-	
+
 	for x in active_points:
-		curve.add_point(x)	
-	
+		curve.add_point(x)
+
 	pathFollow.offset = 0
 	path2d.set_curve(curve)
-	
+
 	line2d.clear_points()
-	line2d.set_points(curve.get_baked_points()) 
+	line2d.set_points(curve.get_baked_points())
 	$Sprite2.visible = false
-	
-	
+
+
 	if if_add_child:
 		emit_signal("path_established", path2d, line2d)
 		if_add_child = false
@@ -201,9 +213,9 @@ func _on_Plane_mouse_entered() -> void:
 func _on_Plane_mouse_exited() -> void:
 #	$AnimationPlayer.play('Exit')
 	draw.can_move = false
-	
+
 	$Sprite2.visible = false
-	
+
 
 func _on_TouchScreenButton_pressed() -> void:
 	TouchHelper.index += 1
@@ -216,4 +228,4 @@ func _on_TouchScreenButton_released() -> void:
 	draw.index = TouchHelper.index
 	$Sprite2.visible = false
 	_on_Plane_mouse_exited()
-	
+

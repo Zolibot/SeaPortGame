@@ -1,0 +1,112 @@
+[gd_scene load_steps=13 format=2]
+
+[ext_resource path="res://assets/blur13.shader" type="Shader" id=1]
+[ext_resource path="res://scene/build1/level/level1.gd" type="Script" id=2]
+[ext_resource path="res://scene/build1/berth/Berth.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scene/build1/ship/ship.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scene/build1/obstacle/Obstacle.tscn" type="PackedScene" id=5]
+[ext_resource path="res://assets/sprite.png" type="Texture" id=6]
+[ext_resource path="res://assets/blur.png" type="Texture" id=7]
+[ext_resource path="res://assets/mask.png" type="Texture" id=8]
+
+[sub_resource type="OpenSimplexNoise" id=2]
+period = 6.2
+persistence = 0.0
+
+[sub_resource type="NoiseTexture" id=3]
+width = 256
+height = 256
+seamless = true
+noise = SubResource( 2 )
+
+[sub_resource type="ShaderMaterial" id=4]
+shader = ExtResource( 1 )
+shader_param/offset = 26.263
+shader_param/offset_step = 3.031
+shader_param/intensity = 0.763
+shader_param/layers = 6.0
+shader_param/speed = 40.0
+shader_param/noise = SubResource( 3 )
+shader_param/blured = ExtResource( 7 )
+shader_param/sprite = ExtResource( 6 )
+shader_param/mask = ExtResource( 8 )
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends Camera2D
+
+var amplitude = 2
+
+func _ready() -> void:
+	pass
+#
+#func _physics_process(delta: float) -> void:
+#	position = Vector2(rand_range(-amplitude,amplitude),rand_range(-amplitude,amplitude))
+"
+
+[node name="Level" type="Node2D"]
+position = Vector2( -2, 0 )
+script = ExtResource( 2 )
+
+[node name="Control" type="CanvasLayer" parent="."]
+layer = -1
+
+[node name="ColorRect" type="TextureRect" parent="Control"]
+material = SubResource( 4 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+texture = ExtResource( 7 )
+stretch_mode = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="DrawBath" type="Node2D" parent="."]
+
+[node name="LineBath" type="Node2D" parent="."]
+
+[node name="PathBath" type="Node2D" parent="."]
+
+[node name="Berth" parent="." instance=ExtResource( 3 )]
+position = Vector2( 61, 569 )
+rotation = 3.14159
+s = "CARGO"
+
+[node name="Berth3" parent="." instance=ExtResource( 3 )]
+position = Vector2( 317, 61 )
+rotation = 4.71238
+s = "REPAIR"
+
+[node name="Berth2" parent="." instance=ExtResource( 3 )]
+position = Vector2( 659, 1024 )
+rotation = 1.57079
+
+[node name="Berth4" parent="." instance=ExtResource( 3 )]
+position = Vector2( 474, 1024 )
+rotation = 1.57079
+
+[node name="Ship" parent="." instance=ExtResource( 4 )]
+position = Vector2( 1655, 595 )
+
+[node name="Ship2" parent="." instance=ExtResource( 4 )]
+position = Vector2( 1664, 362 )
+
+[node name="Ship3" parent="." instance=ExtResource( 4 )]
+position = Vector2( 1495, 600 )
+
+[node name="Camera2D" type="Camera2D" parent="."]
+anchor_mode = 0
+current = true
+process_mode = 0
+smoothing_enabled = true
+script = SubResource( 1 )
+
+[node name="Obstacle" parent="." instance=ExtResource( 5 )]
+position = Vector2( 675, 165 )
+
+[node name="Obstacle2" parent="." instance=ExtResource( 5 )]
+position = Vector2( 675, 281 )
+
+[connection signal="path_established" from="Ship" to="." method="_on_Ship_path_established"]
+[connection signal="path_established" from="Ship2" to="." method="_on_Ship_path_established"]
+[connection signal="path_established" from="Ship3" to="." method="_on_Ship_path_established"]

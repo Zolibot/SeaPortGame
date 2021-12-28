@@ -1,0 +1,150 @@
+[gd_scene load_steps=13 format=2]
+
+[ext_resource path="res://assets/new/social_icon/g4064.png" type="Texture" id=1]
+[ext_resource path="res://assets/new/icon_png_black_and_white/path7143.png" type="Texture" id=2]
+[ext_resource path="res://assets/new/icon_png_black_and_white/path7132.png" type="Texture" id=3]
+[ext_resource path="res://assets/new/icon_png_black_and_white/path6923.png" type="Texture" id=4]
+[ext_resource path="res://assets/new/social_icon/g3946.png" type="Texture" id=5]
+[ext_resource path="res://assets/new/social_icon/g2791.png" type="Texture" id=6]
+[ext_resource path="res://assets/new/social_icon/g2695.png" type="Texture" id=7]
+[ext_resource path="res://assets/new/social_icon/g4094.png" type="Texture" id=8]
+[ext_resource path="res://assets/new/social_icon/g2709.png" type="Texture" id=9]
+[ext_resource path="res://assets/new/icon_png_black_and_white/path6923-0.png" type="Texture" id=10]
+[ext_resource path="res://assets/new/icon_png_black_and_white/path7143-2.png" type="Texture" id=11]
+[ext_resource path="res://assets/new/icon_png_black_and_white/path7132-1.png" type="Texture" id=12]
+
+[node name="ButtomLine" type="MarginContainer"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -2.0
+margin_top = -160.0
+margin_right = -2.0
+margin_bottom = -10.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+margin_right = 1920.0
+margin_bottom = 150.0
+size_flags_horizontal = 3
+
+[node name="VSeparator" type="VSeparator" parent="HBoxContainer"]
+modulate = Color( 1, 1, 1, 0 )
+margin_right = 28.0
+margin_bottom = 150.0
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.21
+
+[node name="GooglePlay" type="TextureButton" parent="HBoxContainer"]
+margin_left = 32.0
+margin_right = 166.0
+margin_bottom = 150.0
+size_flags_horizontal = 3
+texture_normal = ExtResource( 5 )
+texture_pressed = ExtResource( 7 )
+expand = true
+stretch_mode = 5
+
+[node name="VSeparator3" type="VSeparator" parent="HBoxContainer"]
+modulate = Color( 1, 1, 1, 0 )
+margin_left = 170.0
+margin_right = 198.0
+margin_bottom = 150.0
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.21
+
+[node name="Reward" type="TextureButton" parent="HBoxContainer"]
+margin_left = 202.0
+margin_right = 337.0
+margin_bottom = 150.0
+size_flags_horizontal = 3
+texture_normal = ExtResource( 1 )
+texture_pressed = ExtResource( 6 )
+expand = true
+stretch_mode = 5
+
+[node name="VSeparator4" type="VSeparator" parent="HBoxContainer"]
+modulate = Color( 1, 1, 1, 0 )
+margin_left = 341.0
+margin_right = 369.0
+margin_bottom = 150.0
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.21
+
+[node name="LeaderBoard" type="TextureButton" parent="HBoxContainer"]
+margin_left = 373.0
+margin_right = 507.0
+margin_bottom = 150.0
+size_flags_horizontal = 3
+texture_normal = ExtResource( 8 )
+texture_pressed = ExtResource( 9 )
+expand = true
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="HBoxContainer"]
+margin_left = 511.0
+margin_right = 1412.0
+margin_bottom = 150.0
+size_flags_horizontal = 3
+size_flags_vertical = 1
+size_flags_stretch_ratio = 6.7
+text = "KEY_VERSION"
+align = 1
+valign = 2
+uppercase = true
+
+[node name="Share" type="TextureButton" parent="HBoxContainer"]
+margin_left = 1416.0
+margin_right = 1550.0
+margin_bottom = 150.0
+size_flags_horizontal = 3
+texture_normal = ExtResource( 2 )
+texture_pressed = ExtResource( 11 )
+expand = true
+stretch_mode = 5
+
+[node name="VSeparator6" type="VSeparator" parent="HBoxContainer"]
+modulate = Color( 1, 1, 1, 0 )
+margin_left = 1554.0
+margin_right = 1582.0
+margin_bottom = 150.0
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.21
+
+[node name="Setup" type="TextureButton" parent="HBoxContainer"]
+margin_left = 1586.0
+margin_right = 1721.0
+margin_bottom = 150.0
+size_flags_horizontal = 3
+texture_normal = ExtResource( 3 )
+texture_pressed = ExtResource( 12 )
+expand = true
+stretch_mode = 5
+
+[node name="VSeparator5" type="VSeparator" parent="HBoxContainer"]
+modulate = Color( 1, 1, 1, 0 )
+margin_left = 1725.0
+margin_right = 1753.0
+margin_bottom = 150.0
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.21
+
+[node name="Exit" type="TextureButton" parent="HBoxContainer"]
+margin_left = 1757.0
+margin_right = 1891.0
+margin_bottom = 150.0
+size_flags_horizontal = 3
+texture_normal = ExtResource( 4 )
+texture_pressed = ExtResource( 10 )
+expand = true
+stretch_mode = 5
+
+[node name="VSeparator2" type="VSeparator" parent="HBoxContainer"]
+modulate = Color( 1, 1, 1, 0 )
+margin_left = 1895.0
+margin_right = 1920.0
+margin_bottom = 150.0
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.18

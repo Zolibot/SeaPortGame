@@ -18,12 +18,12 @@ var count = 0
 func _unhandled_input(event: InputEvent) -> void:
 	if is_drawing:
 		can_move = true
-	
+
 	if event is InputEventScreenTouch and can_move:
 		if not dragging and event.pressed:
 			dragging = true
 			active_points.clear()
-	   
+
 		if dragging and not event.pressed:
 			dragging = false
 			is_drawing = false
@@ -43,7 +43,7 @@ func _unhandled_input(event: InputEvent) -> void:
 func _draw() -> void:
 	if is_drawing and active_points.size() > 0:
 		draw_polyline(active_points, Color.skyblue, 5.0,false)
-	
+
 #	else:
 #		if active_points.size() < 0:
 #			draw_circle(active_points.front(), 2, Color.red)

@@ -21,4 +21,4 @@ func _on_Plane_path_established(path, line, draw) -> void:
 	pathBath.add_child(path)
 	lineBath.add_child(line)
 	drawBath.add_child(draw)
-	
+

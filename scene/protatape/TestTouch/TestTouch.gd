@@ -20,7 +20,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		if not dragging and event.pressed:
 			dragging = true
 			active_points.clear()
-	   
+
 		if dragging and not event.pressed:
 			dragging = false
 			is_drawing = true
@@ -36,4 +36,4 @@ func _unhandled_input(event: InputEvent) -> void:
 func _draw() -> void:
 	if is_drawing:
 		draw_polyline(active_points, Color.skyblue, 5.0,false)
-	
+

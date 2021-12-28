@@ -1,0 +1,142 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://assets/new/3d/untitled.tscn" type="PackedScene" id=1]
+
+[sub_resource type="GDScript" id=2]
+script/source = "extends MarginContainer
+
+
+
+
+func _ready() -> void:
+
+	pass
+
+
+func _on_START_GAME_pressed() -> void:
+	get_tree().change_scene(\"res://UI/Layers/LevelLabel.tscn\")
+	pass # Replace with function body.
+"
+
+[sub_resource type="ViewportTexture" id=1]
+viewport_path = NodePath("Viewport")
+
+[node name="CenterContainer" type="MarginContainer"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -337.0
+margin_top = -269.0
+margin_right = 337.0
+margin_bottom = 269.0
+script = SubResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+self_modulate = Color( 1, 1, 1, 0 )
+margin_right = 674.0
+margin_bottom = 538.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 667.0
+margin_bottom = 531.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="PanelContainer/VBoxContainer"]
+margin_right = 660.0
+margin_bottom = 257.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 1.7
+texture = SubResource( 1 )
+expand = true
+stretch_mode = 6
+
+[node name="HSeparator" type="HSeparator" parent="PanelContainer/VBoxContainer"]
+self_modulate = Color( 1, 1, 1, 0.298039 )
+margin_top = 261.0
+margin_right = 660.0
+margin_bottom = 283.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.14
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer"]
+margin_top = 287.0
+margin_right = 660.0
+margin_bottom = 405.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.78
+
+[node name="START_GAME" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer"]
+margin_right = 313.0
+margin_bottom = 118.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 1.82
+text = "KEY_START_GAME"
+
+[node name="VSeparator4" type="VSeparator" parent="PanelContainer/VBoxContainer/HBoxContainer"]
+self_modulate = Color( 1, 1, 1, 0.298039 )
+margin_left = 317.0
+margin_right = 342.0
+margin_bottom = 118.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.14
+
+[node name="SURVIVAL_MODE" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer"]
+margin_left = 346.0
+margin_right = 660.0
+margin_bottom = 118.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 1.82
+text = "KEY_SURVIVAL"
+
+[node name="HSeparator2" type="HSeparator" parent="PanelContainer/VBoxContainer"]
+self_modulate = Color( 1, 1, 1, 0.298039 )
+margin_top = 409.0
+margin_right = 660.0
+margin_bottom = 429.0
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.13
+
+[node name="CONTINUE" type="Button" parent="PanelContainer/VBoxContainer"]
+margin_top = 433.0
+margin_right = 660.0
+margin_bottom = 524.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.6
+disabled = true
+text = "KEY_CONTINUE"
+
+[node name="Viewport" type="Viewport" parent="."]
+size = Vector2( 660, 257 )
+transparent_bg = true
+render_target_v_flip = true
+render_target_update_mode = 3
+
+[node name="untitled" parent="Viewport" instance=ExtResource( 1 )]
+
+[connection signal="pressed" from="PanelContainer/VBoxContainer/HBoxContainer/START_GAME" to="." method="_on_START_GAME_pressed"]
