@@ -6,6 +6,8 @@ uniform float offset_step: hint_range(0.0, 100.0);
 uniform float intensity = 0.5f;
 uniform float layers = 5f;
 uniform float speed = 4f;
+uniform vec4 water_color: hint_color;
+
 
 uniform sampler2D noise : hint_albedo;
 uniform sampler2D blured : hint_albedo;
@@ -85,11 +87,13 @@ vec3 offset_blur(sampler2D image, vec2 uv, vec2 resolution, vec2 direction, floa
 
 void fragment(){
 	COLOR = vec4(0);
+	
 	COLOR.a = 1.0;
 
 	COLOR = texture(TEXTURE,UV);
+//	COLOR = water_color;
 	COLOR.rgb = 1.0 - COLOR.rgb;
-
+	
 	float value = COLOR.r;
 	vec4 bg = texture(noise,vec2(UV.x,UV.y + TIME / speed));
 

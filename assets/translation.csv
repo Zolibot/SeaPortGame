@@ -1,10 +1,27 @@
 ,en,ru
 KEY_START_GAME,START GAME,НАЧАТЬ ИГРУ
-KEY_SURVIVAL,SURVIVAL,ВЫЖЕВАНИЕ
+KEY_SURVIVAL,SURVIVAL,ВЫЖИВАНИЕ
 KEY_CONTINUE,CONTINUE,ПРОДОЛЖИТЬ
 KEY_RESET_LEVEL,Reset Level Star,Сброс Игры
-KEY_FPS,: Show FPS,: Показать FPS
-KEY_SOUND,: Sound,: Звук
+KEY_FPS,Show FPS,Показать FPS
+KEY_SOUND,Sound,Звук
 KEY_SETTING,SETTING,НАСТРОЙКИ
 KEY_VERSION,Version : 0.0.1,Версия : 0.0.1
 KEY_LANG_SELECT,Language,Язык
+KEY_YES,Yes,Да
+KEY_NO,No,Нет
+KEY_IDLE,IDLE,ОЖИДАНИЕ
+KEY_RUN,MOVE,ДВИЖЕНИЕ
+KEY_MOORING,MOORING,ШВАРТОВКА
+KEY_UNMOORING,UNMOORING,ОТШВАРТОВКА
+KEY_MANEUVER,MANEUVER,МАНЕВР
+KEY_LAODING,LAODING,ПОГРУЗКА
+KEY_ENGLISH,English,English
+KEY_RUSSIA,Русский,Русский
+KEY_BACK,Back,Назад
+KEY_LEVEL,Levels,Уровни
+KEY_EXIT_GAME,Exit the game?,Выйти из игры?
+KEY_RESUME,Continue,Продолжить
+KEY_RESTART,Restart,Рестарт
+KEY_END_GAME,End game,Завершить игру
+KEY_MAIN_MENU,Main menu,Главное меню

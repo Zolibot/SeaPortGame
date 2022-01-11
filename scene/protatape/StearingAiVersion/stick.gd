@@ -10,8 +10,8 @@ var ship
 func _on_stick_area_entered(area: Area2D) -> void:
 	if area.is_in_group("obstacle"):
 		if not connected:
-			area.connect('mouse_exited',self,'_on_stick_area_exited',[Area2D])
-			connected = true
+			if not area.connect('mouse_exited',self,'_on_stick_area_exited',[Area2D]):
+				connected = true
 		lock = true
 		emit_signal('stick_to_area')
 		return
@@ -20,8 +20,8 @@ func _on_stick_area_entered(area: Area2D) -> void:
 		position = area.global_position
 
 		if not connected:
-			area.connect('mouse_exited',self,'_on_stick_area_exited',[Area2D])
-			connected = true
+			if not area.connect('mouse_exited',self,'_on_stick_area_exited',[Area2D]):
+				connected = true
 		lock = true
 		emit_signal('stick_to_area')
 

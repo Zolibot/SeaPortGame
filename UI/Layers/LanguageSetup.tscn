@@ -1,0 +1,114 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://assets/new/Atlas/Russia.atlastex" type="Texture" id=1]
+[ext_resource path="res://assets/new/Atlas/Language.atlastex" type="Texture" id=2]
+[ext_resource path="res://assets/new/Atlas/English.atlastex" type="Texture" id=3]
+[ext_resource path="res://UI/Layers/LanguageSetup.gd" type="Script" id=4]
+[ext_resource path="res://assets/new/Atlas/Allow.atlastex" type="Texture" id=5]
+[ext_resource path="res://assets/new/Atlas/Circle.atlastex" type="Texture" id=6]
+[ext_resource path="res://UI/new_theme.theme" type="Theme" id=7]
+
+[node name="LanguageSetup" type="MarginContainer"]
+margin_right = 1883.0
+margin_bottom = 323.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource( 7 )
+custom_constants/margin_right = 20
+custom_constants/margin_top = 20
+custom_constants/margin_left = 20
+custom_constants/margin_bottom = 20
+script = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+margin_left = 20.0
+margin_top = 20.0
+margin_right = 1863.0
+margin_bottom = 303.0
+custom_constants/separation = 20
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+margin_right = 1843.0
+margin_bottom = 71.0
+custom_constants/separation = 33
+
+[node name="VSeparator" type="VSeparator" parent="VBoxContainer/HBoxContainer"]
+modulate = Color( 1, 1, 1, 0 )
+margin_right = 108.0
+margin_bottom = 71.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.07
+
+[node name="Language" type="TextureRect" parent="VBoxContainer/HBoxContainer"]
+margin_left = 141.0
+margin_right = 264.0
+margin_bottom = 71.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.08
+texture = ExtResource( 2 )
+expand = true
+stretch_mode = 6
+
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer"]
+margin_left = 297.0
+margin_right = 1843.0
+margin_bottom = 71.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "KEY_LANG_SELECT"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer"]
+margin_top = 91.0
+margin_right = 1843.0
+margin_bottom = 178.0
+custom_constants/separation = 33
+alignment = 1
+
+[node name="EnglishToggle" type="CheckButton" parent="VBoxContainer/HBoxContainer2"]
+margin_left = 180.0
+margin_right = 927.0
+margin_bottom = 87.0
+focus_mode = 0
+size_flags_vertical = 3
+custom_colors/font_color_disabled = Color( 1, 1, 1, 1 )
+custom_colors/font_color_focus = Color( 1, 1, 1, 1 )
+custom_colors/font_color_hover_pressed = Color( 1, 1, 1, 1 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_color_hover = Color( 1, 1, 1, 1 )
+custom_colors/font_color_pressed = Color( 1, 1, 1, 1 )
+custom_constants/hseparation = 78
+custom_icons/off = ExtResource( 6 )
+custom_icons/on_disabled = ExtResource( 5 )
+custom_icons/on = ExtResource( 5 )
+custom_icons/off_disabled = ExtResource( 6 )
+pressed = true
+text = "KEY_ENGLISH"
+icon = ExtResource( 3 )
+
+[node name="RussianToggle" type="CheckButton" parent="VBoxContainer/HBoxContainer2"]
+margin_left = 960.0
+margin_right = 1663.0
+margin_bottom = 87.0
+size_flags_vertical = 3
+custom_colors/font_color_disabled = Color( 1, 1, 1, 1 )
+custom_colors/font_color_focus = Color( 1, 1, 1, 1 )
+custom_colors/font_color_hover_pressed = Color( 0.772549, 0.752941, 0.752941, 1 )
+custom_colors/font_color = Color( 0.772549, 0.752941, 0.752941, 1 )
+custom_colors/font_color_hover = Color( 0.772549, 0.752941, 0.752941, 1 )
+custom_colors/font_color_pressed = Color( 1, 1, 1, 1 )
+custom_constants/hseparation = 78
+custom_icons/off = ExtResource( 6 )
+custom_icons/on_disabled = ExtResource( 5 )
+custom_icons/on = ExtResource( 5 )
+custom_icons/off_disabled = ExtResource( 6 )
+text = "KEY_RUSSIA"
+icon = ExtResource( 1 )
+
+[connection signal="visibility_changed" from="." to="." method="_on_LanguageSetup_visibility_changed"]
+[connection signal="toggled" from="VBoxContainer/HBoxContainer2/EnglishToggle" to="." method="_on_EnglishToggle_toggled"]
+[connection signal="toggled" from="VBoxContainer/HBoxContainer2/RussianToggle" to="." method="_on_RussianToggle_toggled"]

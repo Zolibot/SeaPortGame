@@ -1,18 +1,18 @@
 extends KinematicBody2D
 
 signal path_established(path,line,draw)
-signal path_delete(path,line)
+
 
 enum {IDLE, RUN, GAIN_SPEED, CLEAN_UP_SPEED, MOORING, UNMOORING, COLLISION, MANEUVER, LAODING}
 
-export (int, 0, 1080, 2) var angular_speed_max := 1000
-export (int, 0, 2048, 2) var angular_accel_max := 1500
+export (int, 0, 1080, 2) var angular_speed_max := 500
+export (int, 0, 2048, 2) var angular_accel_max := 2048
 export (int, 0, 180, 2) var align_tolerance := 10
-export (int, 0, 359, 2) var deceleration_radius := 10
+export (int, 0, 359, 2) var deceleration_radius := 5
 export (float, 0, 1000, 40) var player_speed := 900.0
 
 export (PackedScene) var draw
-export (int, 0, 1080, 2) var top_speed = 100
+export (int, 0, 1080, 2) var top_speed = 200
 
 
 export(String, FILE) var repair
@@ -54,11 +54,10 @@ var is_timer = false
 
 func _ready() -> void:
 	yield(get_parent(),"ok")
-	print(status)
+
 	randomize()
 	sequtense = status.keys().duplicate()
 	get_status_sequtense()
-	print(my_status)
 
 
 	state = IDLE
@@ -96,23 +95,28 @@ func _ready() -> void:
 		deg2rad(angular_speed_max)
 	)
 
+	yield(get_tree().create_timer(rand_range(0,1)),'timeout')
+	$AnimationPlayer.play('Icon_scale')
+
+	$Node2D/status.set_scale(Vector2(2,2))
+
 func setup(
 	player_agent: GSAIAgentLocation,
-	align_tolerance: float,
-	deceleration_radius: float,
-	angular_accel_max: float,
-	angular_speed_max: float
+	_align_tolerance: float,
+	_deceleration_radius: float,
+	_angular_accel_max: float,
+	_angular_speed_max: float
 ) -> void:
 	face = GSAIFace.new(agent, player_agent)
 
-	face.alignment_tolerance = align_tolerance
-	face.deceleration_radius = deceleration_radius
+	face.alignment_tolerance = _align_tolerance
+	face.deceleration_radius = _deceleration_radius
 
-	agent.angular_acceleration_max = angular_accel_max
-	agent.angular_speed_max = angular_speed_max
+	agent.angular_acceleration_max = _angular_accel_max
+	agent.angular_speed_max = _angular_speed_max
 	agent.angular_drag_percentage = _angular_drag
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	$Node2D.global_rotation_degrees = 0
 	$Node2D.global_position = global_position + Vector2(50,-50)
 
@@ -120,7 +124,7 @@ func _process(delta: float) -> void:
 		var _index = 0
 		for x in line2d.get_points():
 			if position.distance_to(line2d.get_point_position(_index)) < dist_clear_point:
-				for y in range(_index):
+				for _y in range(_index):
 					line2d.remove_point(0)
 				break
 			_index += 1
@@ -130,7 +134,7 @@ func _physics_process(delta: float) -> void:
 	change_state(state, delta)
 
 func get_status_sequtense()->void:
-	print(len(sequtense))
+
 	for x in range(rand_range(1,len(sequtense))):
 		my_status.append(sequtense[x])
 
@@ -142,7 +146,7 @@ func change_status()->void:
 	$"Node2D/status".texture = load(status[my_status[0]])
 
 
-func get_input(delta)->void:
+func get_input(_delta)->void:
 	pass
 
 func change_state(new_state, delta):
@@ -150,11 +154,11 @@ func change_state(new_state, delta):
 
 	match state:
 		IDLE:
-			$Node2D/Label.set_text("IDLE")
+			$Node2D/Label.set_text("KEY_IDLE")
 			line2d.clear_points()
 
 		RUN:
-			$Node2D/Label.set_text("RUN")
+			$Node2D/Label.set_text("KEY_RUN")
 			face.calculate_steering(_accel)
 			agent._apply_steering(_accel, delta)
 
@@ -164,16 +168,19 @@ func change_state(new_state, delta):
 			else:
 				speed += 3
 				speed = clamp(speed,0, top_speed)
-			pathFollow.offset += (speed + 3) * delta
-			velocity = position.direction_to(pathFollow.get_position()) * speed
+			pathFollow.offset += (speed) * delta
+			velocity = position.direction_to(pathFollow.get_position()) * (speed )
 			#	set_rotation(pathFollow.get_rotation())
 
-			if position.distance_to(pathFollow.get_position()) > 5:
-				velocity = move_and_slide(velocity)
+
+			if pathFollow.get_unit_offset() != 1:
+				if position.distance_to(pathFollow.position)>15:
+					velocity = move_and_slide(velocity)
 			else:
 				change_state(IDLE, delta)
 				line2d.clear_points()
 				path2d.get_curve().clear_points()
+				pathFollow.set_unit_offset(0)
 
 
 		GAIN_SPEED:
@@ -183,7 +190,7 @@ func change_state(new_state, delta):
 		CLEAN_UP_SPEED:
 			pass
 		MOORING:
-			$Node2D/Label.set_text("MOORING")
+			$Node2D/Label.set_text("KEY_MOORING")
 			$TouchScreenButton.visible = false
 			if not $Tween.is_active():
 				mooring(berth.get_node("Area2D").global_position, berth.global_rotation_degrees,2.0)
@@ -193,7 +200,7 @@ func change_state(new_state, delta):
 			change_state(LAODING,delta)
 
 		UNMOORING:
-			$Node2D/Label.set_text("UNMOORING")
+			$Node2D/Label.set_text("KEY_UNMOORING")
 			$TouchScreenButton.visible = false
 			if not $Tween.is_active():
 
@@ -208,7 +215,7 @@ func change_state(new_state, delta):
 		COLLISION:
 			pass
 		MANEUVER:
-			$Node2D/Label.set_text("MANEUVER")
+			$Node2D/Label.set_text("KEY_MANEUVER")
 			speed = 90
 			face.calculate_steering(_accel)
 			agent._apply_steering(_accel, delta)
@@ -219,7 +226,7 @@ func change_state(new_state, delta):
 				change_state(GAIN_SPEED, delta)
 
 		LAODING:
-			$Node2D/Label.set_text("LAODING")
+			$Node2D/Label.set_text("KEY_LAODING")
 			$TouchScreenButton.visible = false
 			if is_timer:
 				timer.start()
@@ -264,7 +271,7 @@ func _simplify(active_points:Array) -> void:
 
 	line2d.clear_points()
 #	TODO make optimazation
-	curve.set_bake_interval(5)
+	curve.set_bake_interval(20)
 
 	line2d.set_points(curve.get_baked_points())
 	$choiceSprite.visible = false

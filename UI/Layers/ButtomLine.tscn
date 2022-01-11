@@ -1,92 +1,94 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
-[ext_resource path="res://assets/new/social_icon/g4064.png" type="Texture" id=1]
-[ext_resource path="res://assets/new/icon_png_black_and_white/path7143.png" type="Texture" id=2]
-[ext_resource path="res://assets/new/icon_png_black_and_white/path7132.png" type="Texture" id=3]
-[ext_resource path="res://assets/new/icon_png_black_and_white/path6923.png" type="Texture" id=4]
-[ext_resource path="res://assets/new/social_icon/g3946.png" type="Texture" id=5]
-[ext_resource path="res://assets/new/social_icon/g2791.png" type="Texture" id=6]
-[ext_resource path="res://assets/new/social_icon/g2695.png" type="Texture" id=7]
-[ext_resource path="res://assets/new/social_icon/g4094.png" type="Texture" id=8]
-[ext_resource path="res://assets/new/social_icon/g2709.png" type="Texture" id=9]
-[ext_resource path="res://assets/new/icon_png_black_and_white/path6923-0.png" type="Texture" id=10]
-[ext_resource path="res://assets/new/icon_png_black_and_white/path7143-2.png" type="Texture" id=11]
-[ext_resource path="res://assets/new/icon_png_black_and_white/path7132-1.png" type="Texture" id=12]
+[ext_resource path="res://assets/new/Atlas/Reddit.atlastex" type="Texture" id=1]
+[ext_resource path="res://assets/new/Atlas/ExitBlack.atlastex" type="Texture" id=2]
+[ext_resource path="res://assets/new/Atlas/Twitter.atlastex" type="Texture" id=3]
+[ext_resource path="res://assets/new/Atlas/PlayMarketBlack.atlastex" type="Texture" id=4]
+[ext_resource path="res://assets/new/Atlas/Exit.atlastex" type="Texture" id=5]
+[ext_resource path="res://assets/new/Atlas/ShareBlack.atlastex" type="Texture" id=6]
+[ext_resource path="res://assets/new/Atlas/TwitterBlack.atlastex" type="Texture" id=7]
+[ext_resource path="res://assets/new/Atlas/SetupBlack.atlastex" type="Texture" id=8]
+[ext_resource path="res://assets/new/Atlas/Setup.atlastex" type="Texture" id=9]
+[ext_resource path="res://assets/new/Atlas/RedditBlack.atlastex" type="Texture" id=10]
+[ext_resource path="res://assets/new/Atlas/Share.atlastex" type="Texture" id=11]
+[ext_resource path="res://assets/new/Atlas/PlayMarket.atlastex" type="Texture" id=12]
+[ext_resource path="res://UI/new_theme.theme" type="Theme" id=13]
 
 [node name="ButtomLine" type="MarginContainer"]
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = -2.0
-margin_top = -160.0
-margin_right = -2.0
+margin_left = -4.0
+margin_top = -170.0
+margin_right = -4.0
 margin_bottom = -10.0
+theme = ExtResource( 13 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 margin_right = 1920.0
-margin_bottom = 150.0
+margin_bottom = 160.0
 size_flags_horizontal = 3
 
 [node name="VSeparator" type="VSeparator" parent="HBoxContainer"]
 modulate = Color( 1, 1, 1, 0 )
-margin_right = 28.0
-margin_bottom = 150.0
+margin_right = 27.0
+margin_bottom = 160.0
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.21
 
-[node name="GooglePlay" type="TextureButton" parent="HBoxContainer"]
-margin_left = 32.0
+[node name="Twitter" type="TextureButton" parent="HBoxContainer"]
+margin_left = 35.0
 margin_right = 166.0
-margin_bottom = 150.0
+margin_bottom = 160.0
 size_flags_horizontal = 3
-texture_normal = ExtResource( 5 )
+texture_normal = ExtResource( 3 )
 texture_pressed = ExtResource( 7 )
 expand = true
 stretch_mode = 5
 
 [node name="VSeparator3" type="VSeparator" parent="HBoxContainer"]
 modulate = Color( 1, 1, 1, 0 )
-margin_left = 170.0
-margin_right = 198.0
-margin_bottom = 150.0
+margin_left = 174.0
+margin_right = 201.0
+margin_bottom = 160.0
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.21
 
-[node name="Reward" type="TextureButton" parent="HBoxContainer"]
-margin_left = 202.0
-margin_right = 337.0
-margin_bottom = 150.0
+[node name="GooglePlay" type="TextureButton" parent="HBoxContainer"]
+margin_left = 209.0
+margin_right = 340.0
+margin_bottom = 160.0
 size_flags_horizontal = 3
-texture_normal = ExtResource( 1 )
-texture_pressed = ExtResource( 6 )
+texture_normal = ExtResource( 12 )
+texture_pressed = ExtResource( 4 )
 expand = true
 stretch_mode = 5
 
 [node name="VSeparator4" type="VSeparator" parent="HBoxContainer"]
 modulate = Color( 1, 1, 1, 0 )
-margin_left = 341.0
-margin_right = 369.0
-margin_bottom = 150.0
+margin_left = 348.0
+margin_right = 376.0
+margin_bottom = 160.0
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.21
 
-[node name="LeaderBoard" type="TextureButton" parent="HBoxContainer"]
-margin_left = 373.0
-margin_right = 507.0
-margin_bottom = 150.0
+[node name="Reddit" type="TextureButton" parent="HBoxContainer"]
+margin_left = 384.0
+margin_right = 515.0
+margin_bottom = 160.0
 size_flags_horizontal = 3
-texture_normal = ExtResource( 8 )
-texture_pressed = ExtResource( 9 )
+texture_normal = ExtResource( 1 )
+texture_pressed = ExtResource( 10 )
 expand = true
 stretch_mode = 5
 
 [node name="Label" type="Label" parent="HBoxContainer"]
-margin_left = 511.0
-margin_right = 1412.0
-margin_bottom = 150.0
+margin_left = 523.0
+margin_right = 1400.0
+margin_bottom = 160.0
 size_flags_horizontal = 3
 size_flags_vertical = 1
 size_flags_stretch_ratio = 6.7
@@ -96,55 +98,55 @@ valign = 2
 uppercase = true
 
 [node name="Share" type="TextureButton" parent="HBoxContainer"]
-margin_left = 1416.0
-margin_right = 1550.0
-margin_bottom = 150.0
+margin_left = 1408.0
+margin_right = 1539.0
+margin_bottom = 160.0
 size_flags_horizontal = 3
-texture_normal = ExtResource( 2 )
-texture_pressed = ExtResource( 11 )
+texture_normal = ExtResource( 11 )
+texture_pressed = ExtResource( 6 )
 expand = true
 stretch_mode = 5
 
 [node name="VSeparator6" type="VSeparator" parent="HBoxContainer"]
 modulate = Color( 1, 1, 1, 0 )
-margin_left = 1554.0
-margin_right = 1582.0
-margin_bottom = 150.0
+margin_left = 1547.0
+margin_right = 1575.0
+margin_bottom = 160.0
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.21
 
 [node name="Setup" type="TextureButton" parent="HBoxContainer"]
-margin_left = 1586.0
-margin_right = 1721.0
-margin_bottom = 150.0
+margin_left = 1583.0
+margin_right = 1713.0
+margin_bottom = 160.0
 size_flags_horizontal = 3
-texture_normal = ExtResource( 3 )
-texture_pressed = ExtResource( 12 )
+texture_normal = ExtResource( 9 )
+texture_pressed = ExtResource( 8 )
 expand = true
 stretch_mode = 5
 
 [node name="VSeparator5" type="VSeparator" parent="HBoxContainer"]
 modulate = Color( 1, 1, 1, 0 )
-margin_left = 1725.0
-margin_right = 1753.0
-margin_bottom = 150.0
+margin_left = 1721.0
+margin_right = 1749.0
+margin_bottom = 160.0
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.21
 
 [node name="Exit" type="TextureButton" parent="HBoxContainer"]
 margin_left = 1757.0
-margin_right = 1891.0
-margin_bottom = 150.0
+margin_right = 1888.0
+margin_bottom = 160.0
 size_flags_horizontal = 3
-texture_normal = ExtResource( 4 )
-texture_pressed = ExtResource( 10 )
+texture_normal = ExtResource( 5 )
+texture_pressed = ExtResource( 2 )
 expand = true
 stretch_mode = 5
 
 [node name="VSeparator2" type="VSeparator" parent="HBoxContainer"]
 modulate = Color( 1, 1, 1, 0 )
-margin_left = 1895.0
+margin_left = 1896.0
 margin_right = 1920.0
-margin_bottom = 150.0
+margin_bottom = 160.0
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.18

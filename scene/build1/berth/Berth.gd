@@ -15,9 +15,7 @@ onready var status:Dictionary= { "FUEL":fuel, "CARGO":cargo, "REPAIR":repair}
 func _ready() -> void:
 	$labelSprite.texture = load(status[s])
 	$labelSprite.global_rotation_degrees = 0
-
-func _process(delta: float) -> void:
-	pass
+	$berthSprite2.global_position = $berthSprite.global_position + Vector2(-7, 7)
 
 
 func _on_Area2D_body_entered(body: Node) -> void:
@@ -26,5 +24,5 @@ func _on_Area2D_body_entered(body: Node) -> void:
 		body.change_state(body.MOORING, 0.1)
 		body.line2d.clear_points()
 
-func _on_Area2D_body_exited(body: Node) -> void:
+func _on_Area2D_body_exited(_body: Node) -> void:
 	pass # Replace with function body.

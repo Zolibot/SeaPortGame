@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://assets/new/icon_png_black_and_white/path7088.png" type="Texture" id=1]
+[ext_resource path="res://assets/new/Atlas/Star.atlastex" type="Texture" id=1]
 [ext_resource path="res://icon.png" type="Texture" id=2]
+[ext_resource path="res://UI/new_theme.theme" type="Theme" id=3]
 
 [sub_resource type="GDScript" id=1]
 script/source = "extends MarginContainer
@@ -12,7 +13,8 @@ func _ready() -> void:
 
 
 func _on_LevelButton_pressed() -> void:
-	get_tree().change_scene(\"res://scene/build1/level/Level.tscn\")
+	if not get_tree().change_scene(\"res://scene/build1/level/Level.tscn\"):
+		pass
 	pass # Replace with function body.
 "
 
@@ -21,6 +23,7 @@ margin_right = 349.0
 margin_bottom = 413.0
 rect_min_size = Vector2( 200, 200 )
 mouse_filter = 1
+theme = ExtResource( 3 )
 script = SubResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -32,9 +35,9 @@ margin_bottom = 413.0
 rect_min_size = Vector2( 349, 413 )
 
 [node name="Nuber" type="Label" parent="VBoxContainer"]
-margin_top = 39.0
+margin_top = 10.0
 margin_right = 349.0
-margin_bottom = 53.0
+margin_bottom = 81.0
 size_flags_vertical = 6
 size_flags_stretch_ratio = 0.36
 text = "1"
@@ -42,26 +45,25 @@ align = 1
 
 [node name="LevelButton" type="TextureButton" parent="VBoxContainer"]
 margin_left = 78.0
-margin_top = 97.0
+margin_top = 99.0
 margin_right = 270.0
-margin_bottom = 289.0
+margin_bottom = 291.0
 mouse_filter = 1
 size_flags_horizontal = 4
 size_flags_vertical = 2
 texture_normal = ExtResource( 2 )
 
 [node name="HBox" type="HBoxContainer" parent="VBoxContainer"]
-margin_top = 363.0
+margin_top = 362.0
 margin_right = 349.0
-margin_bottom = 413.0
+margin_bottom = 412.0
 grow_horizontal = 2
 grow_vertical = 2
 alignment = 1
 
 [node name="Star1" type="TextureRect" parent="VBoxContainer/HBox"]
-modulate = Color( 1, 0.819608, 0, 1 )
-margin_left = 95.0
-margin_right = 145.0
+margin_left = 91.0
+margin_right = 141.0
 margin_bottom = 50.0
 rect_min_size = Vector2( 50, 50 )
 texture = ExtResource( 1 )
@@ -76,8 +78,8 @@ texture = ExtResource( 1 )
 expand = true
 
 [node name="Star3" type="TextureRect" parent="VBoxContainer/HBox"]
-margin_left = 203.0
-margin_right = 253.0
+margin_left = 207.0
+margin_right = 257.0
 margin_bottom = 50.0
 rect_min_size = Vector2( 50, 50 )
 texture = ExtResource( 1 )
