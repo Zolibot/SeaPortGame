@@ -29,6 +29,7 @@ var velocity := Vector2()
 var if_add_child := true
 var distance_threshold := 20.0
 var dist_clear_point := 20.0
+var dead_interval := 100
 var face : GSAIFace
 var agent := GSAIKinematicBody2DAgent.new(self)
 var _accel := GSAITargetAcceleration.new()
@@ -254,9 +255,10 @@ func _simplify(active_points:Array) -> void:
 	for i in range(1, active_points.size()):
 		var point: Vector2 = active_points[i]
 		var distance := point.distance_to(key)
-		if distance > distance_threshold:
-			key = point
-			simplified_path.append(key)
+		if global_position.distance_to(point) > dead_interval:
+			if distance > distance_threshold:
+				key = point
+				simplified_path.append(key)
 	active_points = simplified_path
 	if active_points.back() != last:
 		active_points.append(last)

@@ -3,15 +3,12 @@ extends Node
 var lang
 
 var main_menu = "res://UI/UI.tscn"
-var lavel_menu = "res://UI/Layers/LevelLabel.tscn"
+var level_menu = "res://UI/Layers/LevelLabel.tscn"
 
 func _ready() -> void:
 
 
 	pass
-
-
-
 
 func save_game(data):
 	var file:File = File.new()

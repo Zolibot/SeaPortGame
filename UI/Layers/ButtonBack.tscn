@@ -1,0 +1,40 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://assets/new/Atlas/Back.atlastex" type="Texture" id=1]
+
+[node name="Control" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 8.0
+margin_top = 8.0
+margin_right = -8.0
+margin_bottom = -8.0
+mouse_filter = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ButtonBack" type="MarginContainer" parent="."]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_top = -165.0
+margin_right = 528.0
+mouse_filter = 1
+size_flags_horizontal = 0
+size_flags_vertical = 8
+custom_constants/margin_right = 25
+custom_constants/margin_top = 25
+custom_constants/margin_left = 25
+custom_constants/margin_bottom = 25
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ButtonBack" type="Button" parent="ButtonBack"]
+margin_left = 25.0
+margin_top = 25.0
+margin_right = 503.0
+margin_bottom = 140.0
+custom_constants/hseparation = 30
+text = "KEY_BACK"
+icon = ExtResource( 1 )

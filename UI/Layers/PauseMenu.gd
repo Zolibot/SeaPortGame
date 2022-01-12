@@ -21,7 +21,7 @@ func _on_Restart_pressed() -> void:
 
 
 func _on_EndGame_pressed() -> void:
-	if not get_tree().change_scene(Global.lavel_menu):
+	if not get_tree().change_scene(Global.level_menu):
 		pass
 
 

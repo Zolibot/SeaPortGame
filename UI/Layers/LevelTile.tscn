@@ -1,26 +1,32 @@
 [gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://assets/new/Atlas/Star.atlastex" type="Texture" id=1]
-[ext_resource path="res://icon.png" type="Texture" id=2]
 [ext_resource path="res://UI/new_theme.theme" type="Theme" id=3]
+[ext_resource path="res://Logo.png" type="Texture" id=4]
 
 [sub_resource type="GDScript" id=1]
 script/source = "extends MarginContainer
 
+var level_path
+var level_name
 
 func _ready() -> void:
+
 	pass
 
+func set_name(name)->void:
+	$VBoxContainer/Nuber.text = name
 
 func _on_LevelButton_pressed() -> void:
-	if not get_tree().change_scene(\"res://scene/build1/level/Level.tscn\"):
+	if not get_tree().change_scene(level_path):
 		pass
-	pass # Replace with function body.
+
 "
 
 [node name="LevelTile" type="MarginContainer"]
-margin_right = 349.0
-margin_bottom = 413.0
+margin_left = -4.0
+margin_right = 345.0
+margin_bottom = 425.0
 rect_min_size = Vector2( 200, 200 )
 mouse_filter = 1
 theme = ExtResource( 3 )
@@ -31,32 +37,32 @@ __meta__ = {
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 margin_right = 349.0
-margin_bottom = 413.0
+margin_bottom = 425.0
 rect_min_size = Vector2( 349, 413 )
 
 [node name="Nuber" type="Label" parent="VBoxContainer"]
-margin_top = 10.0
 margin_right = 349.0
-margin_bottom = 81.0
+margin_bottom = 71.0
 size_flags_vertical = 6
 size_flags_stretch_ratio = 0.36
 text = "1"
 align = 1
 
 [node name="LevelButton" type="TextureButton" parent="VBoxContainer"]
-margin_left = 78.0
-margin_top = 99.0
-margin_right = 270.0
-margin_bottom = 291.0
+margin_left = 30.0
+margin_top = 79.0
+margin_right = 318.0
+margin_bottom = 367.0
 mouse_filter = 1
 size_flags_horizontal = 4
 size_flags_vertical = 2
-texture_normal = ExtResource( 2 )
+texture_normal = ExtResource( 4 )
+stretch_mode = 5
 
 [node name="HBox" type="HBoxContainer" parent="VBoxContainer"]
-margin_top = 362.0
+margin_top = 375.0
 margin_right = 349.0
-margin_bottom = 412.0
+margin_bottom = 425.0
 grow_horizontal = 2
 grow_vertical = 2
 alignment = 1

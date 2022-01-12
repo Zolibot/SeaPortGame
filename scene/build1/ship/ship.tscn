@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://scene/build1/ship/Ship.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scene/build1/ship/ship.gd" type="Script" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://assets/new/Atlas/Fuel.atlastex" type="Texture" id=5]
 [ext_resource path="res://scene/build1/ship/CPUParticles2D.tscn" type="PackedScene" id=6]
 [ext_resource path="res://assets/new/Atlas/Allow.atlastex" type="Texture" id=7]
+[ext_resource path="res://assets/new/Atlas/DrawRound.atlastex" type="Texture" id=8]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 100, 100 )
@@ -80,6 +81,11 @@ initial_velocity = 0.0
 position = Vector2( 0, -70 )
 
 [node name="choiceSprite" type="Sprite" parent="."]
+visible = false
+modulate = Color( 0, 1, 0.729412, 1 )
+position = Vector2( 7.62939e-06, -7.62939e-06 )
+scale = Vector2( 4.91509, 4.91509 )
+texture = ExtResource( 8 )
 
 [node name="Ship" parent="." instance=ExtResource( 1 )]
 
@@ -91,13 +97,13 @@ shape = SubResource( 1 )
 shape_centered = false
 
 [node name="Node2D" type="Node2D" parent="."]
-position = Vector2( 102.5, -162.5 )
+z_index = 10
 
 [node name="Label" type="Label" parent="Node2D"]
-margin_left = -47.5
-margin_top = 10.0
-margin_right = 59.5
-margin_bottom = 59.0
+margin_left = 88.0
+margin_top = -40.0
+margin_right = 195.0
+margin_bottom = 9.0
 custom_fonts/font = SubResource( 2 )
 text = "INDE"
 align = 1
@@ -108,7 +114,7 @@ __meta__ = {
 }
 
 [node name="status" type="Sprite" parent="Node2D"]
-position = Vector2( 10, -82.5 )
+position = Vector2( 132, -120 )
 scale = Vector2( 0.4, 0.4 )
 texture = ExtResource( 5 )
 
